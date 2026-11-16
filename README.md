@@ -56,4 +56,5 @@ brew install gource ffmpeg      # macOS, one time
 
 By default the script spaces commits evenly (one per "day") in a throwaway log
 file so each gets screen time. Run `./scripts/gource-video.sh --real` to use the
-true commit times instead. Your git history is not modified either way.
+true commit times instead. The date banner is hidden because evenly spaced dates are not real dates. Your
+git history is not modified either way.

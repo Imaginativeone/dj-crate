@@ -10,8 +10,10 @@ gource gource/dj-crate.log \
   --title "DJ Crate: building a Next.js app, commit by commit" \
   --seconds-per-day 3 \
   --auto-skip-seconds 1 \
+  --stop-at-end \
   --file-idle-time 0 \
   --key \
+  --hide date \
   --highlight-users \
   --bloom-multiplier 0.6 \
   --background-colour 12101a \
