@@ -1,6 +1,5 @@
 "use server";
 
-import { cartTotals } from "@/lib/pricing";
 import { getSongs } from "@/lib/songData";
 import { validateOrder, type OrderErrors, type OrderFields } from "./validation";
 
@@ -8,15 +7,15 @@ import { validateOrder, type OrderErrors, type OrderFields } from "./validation"
  * A Server Action: a function the browser can call like a normal async
  * function, but which runs on the server. Next.js creates the HTTP endpoint.
  *
- * Security rule on display: the browser sends only song IDs. Prices are
- * looked up again here. Never trust a total calculated in the browser,
- * because anyone can edit what their browser sends.
+ * Security rule on display: the browser sends only song IDs, and every ID is
+ * checked against the real song list here. Never trust data from the
+ * browser, because anyone can edit what their browser sends.
  */
 
 export type OrderState =
   | { status: "idle" }
   | { status: "error"; errors: OrderErrors; fields: OrderFields }
-  | { status: "success"; orderId: string; count: number; totalCents: number; name: string };
+  | { status: "success"; orderId: string; count: number; name: string };
 
 export async function placeOrder(_previous: OrderState, formData: FormData): Promise<OrderState> {
   const fields: OrderFields = {
@@ -35,13 +34,11 @@ export async function placeOrder(_previous: OrderState, formData: FormData): Pro
   const errors = validateOrder(fields, songs.length);
   if (Object.keys(errors).length > 0) return { status: "error", errors, fields };
 
-  const totals = cartTotals(songs);
-  // Demo only: a real app would save the order and take payment here.
+  // Demo only: a real app would save the order here.
   return {
     status: "success",
     orderId: `DJ-${Date.now().toString(36).toUpperCase()}`,
-    count: totals.count,
-    totalCents: totals.totalCents,
+    count: songs.length,
     name: fields.name.trim(),
   };
 }

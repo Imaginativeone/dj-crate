@@ -1,12 +1,12 @@
 # DJ Crate
 
 Search every song that has charted in the U.S. since 1940 (39,017 of them), drop
-songs into a crate, reorder them into a setlist, and run a mock checkout.
+songs into a crate, reorder them into a setlist, and run a demo checkout.
 
 Built as interview practice for senior React / Next.js topics. Read
 [STUDY_GUIDE.md](./STUDY_GUIDE.md) for what each file teaches.
 
-**This is a demo store.** Prices are invented, nothing is sold, and no payment
+**This is a demo.** There are no prices, nothing is sold, and no payment
 details are collected.
 
 ## Run it
@@ -14,7 +14,7 @@ details are collected.
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm test           # 36 tests: Jest + React Testing Library + jest-axe
+npm test           # 32 tests: Jest + React Testing Library + jest-axe
 npm run lint
 npm run build
 ```
@@ -34,7 +34,7 @@ Requires Node 20.9 or newer.
 | `src/cart/cartReducer.ts` | All crate rules as one pure reducer |
 | `src/cart/CartContext.tsx` | Context + useReducer, split state/dispatch, localStorage |
 | `src/alternatives/cartStore.zustand.ts` | Same crate as a Zustand store, for comparison |
-| `src/app/checkout/actions.ts` | Server Action that re-prices the order on the server |
+| `src/app/checkout/actions.ts` | Server Action that re-checks the order on the server |
 | `src/components/SiteStats.tsx` | Server Component with `"use cache"` |
 
 ## Song data

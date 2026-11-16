@@ -199,7 +199,7 @@ receive Server Components as `children` (see `layout.tsx`).
 - *Errors:* stored, shown with a retry button.
 
 **Never trust the client.** The checkout action receives song IDs only and
-looks the prices up again on the server. The Route Handler clamps `limit` and
+checks each one against the real song list on the server. The Route Handler clamps `limit` and
 validates `sort`.
 
 **They might ask**
@@ -224,11 +224,11 @@ validates `sort`.
 
 ## 5. Testing
 
-Run `npm test`. 36 tests across 9 files.
+Run `npm test`. 32 tests across 8 files.
 
 | File | Kind of test | Shows |
 |---|---|---|
-| `cartReducer.test.ts`, `search.test.ts`, `pricing.test.ts` | Unit | Pure functions need no React and no mocks |
+| `cartReducer.test.ts`, `search.test.ts`, `validation.test.ts` | Unit | Pure functions need no React and no mocks |
 | `useDebouncedValue.test.ts` | Hook | `renderHook`, fake timers |
 | `useSongSearch.test.ts` | Hook | Mocked `fetch`, async `waitFor`, a race-condition test |
 | `Crate.test.tsx`, `SongResults.test.tsx` | Component | Render with a real provider, click like a user |
@@ -292,8 +292,8 @@ Federal sites must meet Section 508, which points at WCAG 2.0 AA. You have done
   reducer no longer returns on every path and the compiler tells you.
 - **`unknown` over `any`:** `readSavedItems` in `CartContext.tsx` parses
   untrusted JSON as `unknown` and checks it before use.
-- **`Pick<Song, "peak">`:** `pricing.ts` asks only for the field it needs, so
-  tests can pass `{ peak: 1 }`.
+- **`Partial<Record<...>>`:** `OrderErrors` in `validation.ts` says "an object
+  that may have an error message for any of these field names".
 
 ---
 
@@ -316,8 +316,7 @@ Federal sites must meet Section 508, which points at WCAG 2.0 AA. You have done
 - **Derived state:** if you can calculate it from props or state, don't store
   it.
 - **`key`:** identity for list items; also a way to reset a component.
-- **Money:** integer cents.
-- **Security:** validate and re-price on the server.
+- **Security:** validate everything again on the server.
 - **RTL:** query by role and name, like a user.
 - **ARIA:** native element first.
 

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { placeOrder, type OrderState } from "@/app/checkout/actions";
 import { useCart, useCartDispatch } from "@/cart/CartContext";
-import { cartTotals, formatCents } from "@/lib/pricing";
 
 const idle: OrderState = { status: "idle" };
 
@@ -29,9 +28,9 @@ export function CheckoutForm() {
         <h2>Thanks, {state.name}!</h2>
         <p>
           Order <strong>{state.orderId}</strong>: {state.count}{" "}
-          {state.count === 1 ? "track" : "tracks"}, {formatCents(state.totalCents)}.
+          {state.count === 1 ? "track" : "tracks"}.
         </p>
-        <p className="hint">This is a demo. No payment was taken and nothing will be sent.</p>
+        <p className="hint">This is a demo. Nothing will be sent.</p>
         <Link href="/" className="button is-primary">
           Build another crate
         </Link>
@@ -54,13 +53,11 @@ export function CheckoutForm() {
 
   const errors = state.status === "error" ? state.errors : {};
   const fields = state.status === "error" ? state.fields : { name: "", email: "", event: "" };
-  const totals = cartTotals(items);
 
   return (
     <form action={formAction} className="checkout-form" noValidate>
       <p>
-        {totals.count} {totals.count === 1 ? "track" : "tracks"} ·{" "}
-        <strong>{formatCents(totals.totalCents)}</strong>
+        <strong>{items.length}</strong> {items.length === 1 ? "track" : "tracks"} in your crate.
       </p>
 
       {Object.keys(errors).length > 0 && (
@@ -120,7 +117,7 @@ export function CheckoutForm() {
       <button type="submit" className="button is-primary" disabled={isPending}>
         {isPending ? "Placing order…" : "Place demo order"}
       </button>
-      <p className="hint">Demo store. No payment details are collected.</p>
+      <p className="hint">Demo only. Nothing is sold or sent.</p>
     </form>
   );
 }

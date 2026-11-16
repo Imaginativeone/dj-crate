@@ -1,7 +1,6 @@
 "use client";
 
 import { memo, type CSSProperties } from "react";
-import { formatCents, priceCents } from "@/lib/pricing";
 import type { Song } from "@/lib/types";
 
 type Props = {
@@ -41,7 +40,6 @@ export const SongRow = memo(function SongRow({
           {song.peak === null ? "Peak position unknown" : `Peaked at number ${song.peak}`}
         </span>
       </span>
-      <span className="song-price">{formatCents(priceCents(song))}</span>
       <button
         type="button"
         className={inCrate ? "button is-active" : "button"}

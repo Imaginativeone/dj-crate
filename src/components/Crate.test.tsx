@@ -20,11 +20,10 @@ const titlesInOrder = () =>
 beforeEach(() => window.localStorage.clear());
 
 describe("Crate", () => {
-  it("shows the saved crate with a total", async () => {
+  it("shows the saved crate with a track count", async () => {
     renderCrate();
-    // Three number-one hits at $1.99 each. The total appears once the saved
-    // crate has been loaded from localStorage.
-    expect(await screen.findAllByText("$5.97")).toHaveLength(2); // subtotal and total
+    // The count appears once the saved crate has been loaded from localStorage.
+    expect(await screen.findByText("3 tracks")).toBeInTheDocument();
     expect(titlesInOrder()).toEqual(["White Christmas", "I Want To Hold Your Hand", "Respect"]);
   });
 
@@ -56,7 +55,7 @@ describe("Crate", () => {
 
   it("has no automatically detectable accessibility problems", async () => {
     const { container } = renderCrate();
-    await screen.findAllByText("$5.97");
+    await screen.findByText("3 tracks");
     expect(await axe(container)).toHaveNoViolations();
   });
 });

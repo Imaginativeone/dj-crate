@@ -203,7 +203,7 @@ input[aria-invalid="true"] {
   position: absolute;
   inset: 0 0 auto 0;
   display: grid;
-  grid-template-columns: 52px 1fr 52px 60px 96px;
+  grid-template-columns: 52px 1fr 52px 96px;
   align-items: center;
   gap: 12px;
   padding: 0 16px;
@@ -212,8 +212,7 @@ input[aria-invalid="true"] {
 .song-row .button {
   width: 96px;
 }
-.song-year,
-.song-price {
+.song-year {
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
@@ -281,7 +280,7 @@ input[aria-invalid="true"] {
 }
 .crate-item {
   display: grid;
-  grid-template-columns: 32px 1fr 60px auto;
+  grid-template-columns: 32px 1fr auto;
   align-items: center;
   gap: 12px;
   padding: 10px 16px;
@@ -311,20 +310,8 @@ input[aria-invalid="true"] {
   margin: 0;
   font-size: 1.1rem;
 }
-.summary dl {
+.summary-count {
   margin: 0;
-}
-.summary dl div {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 0;
-}
-.summary dd {
-  margin: 0;
-  font-variant-numeric: tabular-nums;
-}
-.summary-total {
-  border-top: 1px solid var(--line);
   font-weight: 700;
 }
 .summary .hint {
@@ -344,9 +331,6 @@ input[aria-invalid="true"] {
   }
   .song-row {
     grid-template-columns: 44px 1fr 44px 84px;
-  }
-  .song-price {
-    display: none;
   }
   .song-row .button {
     width: 84px;

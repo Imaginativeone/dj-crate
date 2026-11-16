@@ -1,15 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useCart, useCartDispatch } from "@/cart/CartContext";
-import {
-  BUNDLE_DISCOUNT_PERCENT,
-  BUNDLE_SIZE,
-  cartTotals,
-  formatCents,
-  priceCents,
-} from "@/lib/pricing";
 import type { Song } from "@/lib/types";
 
 export function setlistText(items: readonly Song[]): string {
@@ -31,9 +24,6 @@ export function Crate() {
   // Text for screen readers after a reorder or removal, where nothing else
   // would tell a non-sighted user that the action worked.
   const [announcement, setAnnouncement] = useState("");
-
-  // Derived data: calculated from state during render, never stored as state.
-  const totals = useMemo(() => cartTotals(items), [items]);
 
   if (!hydrated) return <p className="empty">Loading your crate…</p>;
 
@@ -76,7 +66,6 @@ export function Crate() {
                 {song.artist} · {song.year}
               </span>
             </span>
-            <span className="song-price">{formatCents(priceCents(song))}</span>
             <span className="crate-actions">
               {/* Buttons instead of drag-and-drop: works with keyboard, switch
                   devices and screen readers with no extra library. */}
@@ -117,31 +106,10 @@ export function Crate() {
 
       <aside className="summary" aria-labelledby="summary-heading">
         <h2 id="summary-heading">Summary</h2>
-        <dl>
-          <div>
-            <dt>Tracks</dt>
-            <dd>{totals.count}</dd>
-          </div>
-          <div>
-            <dt>Subtotal</dt>
-            <dd>{formatCents(totals.subtotalCents)}</dd>
-          </div>
-          {totals.discountCents > 0 && (
-            <div>
-              <dt>Bundle discount ({BUNDLE_DISCOUNT_PERCENT}%)</dt>
-              <dd>−{formatCents(totals.discountCents)}</dd>
-            </div>
-          )}
-          <div className="summary-total">
-            <dt>Total</dt>
-            <dd>{formatCents(totals.totalCents)}</dd>
-          </div>
-        </dl>
-        {totals.count < BUNDLE_SIZE && (
-          <p className="hint">
-            Add {BUNDLE_SIZE - totals.count} more for {BUNDLE_DISCOUNT_PERCENT}% off.
-          </p>
-        )}
+        {/* Derived data: counted from state during render, never stored as state. */}
+        <p className="summary-count">
+          {items.length} {items.length === 1 ? "track" : "tracks"}
+        </p>
         <Link href="/checkout" className="button is-primary">
           Check out
         </Link>
@@ -151,7 +119,7 @@ export function Crate() {
         <button type="button" className="button" onClick={() => dispatch({ type: "cleared" })}>
           Empty crate
         </button>
-        <p className="hint">Demo store. Prices are made up and nothing is charged.</p>
+        <p className="hint">Demo only. Nothing is sold or sent.</p>
       </aside>
     </div>
   );
