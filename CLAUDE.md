@@ -19,7 +19,7 @@ npx jest src/lib/search.test.ts   # one test file
 npx jest -t "shows the saved crate"   # tests whose name matches
 npm run lint
 npm run build
-./scripts/gource-video.sh [--real]    # Gource video of git history (needs gource + ffmpeg)
+npm run replay                    # Gitlogue replay of the commit history (gitlogue must be installed)
 ```
 
 Requires Node 20.9+. Tests sit next to the code they cover (`*.test.ts(x)`). `@/` maps to `src/` in both tsconfig and `jest.config.ts`.

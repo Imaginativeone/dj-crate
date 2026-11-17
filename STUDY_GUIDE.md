@@ -320,7 +320,7 @@ Federal sites must meet Section 508, which points at WCAG 2.0 AA. You have done
 - **RTL:** query by role and name, like a user.
 - **ARIA:** native element first.
 
-## Stretch exercises (each is a good commit for the Gource video)
+## Stretch exercises (each is a good commit for the Gitlogue replay)
 
 1. Put the search text and filters in the URL (`useSearchParams`) so a search
    can be shared as a link.

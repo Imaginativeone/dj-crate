@@ -47,14 +47,18 @@ Requires Node 20.9 or newer.
 
 Neither archive has been checked against Billboard's own records.
 
-## Gource video of the build
+## Replay the build with Gitlogue
+
+[Gitlogue](https://github.com/unhappychoice/gitlogue) replays each commit in
+the terminal as if someone were typing the code by hand.
 
 ```bash
-brew install gource ffmpeg      # macOS, one time
-./scripts/gource-video.sh       # writes gource/dj-crate.mp4
+npm run replay                          # every commit, oldest first
+npm run replay -- --commit HEAD~3..HEAD # just the last three
 ```
 
-By default the script spaces commits evenly (one per "day") in a throwaway log
-file so each gets screen time. Run `./scripts/gource-video.sh --real` to use the
-true commit times instead. The date banner is hidden because evenly spaced dates are not real dates. Your
-git history is not modified either way.
+Install it once by downloading the binary for your machine from its
+[releases page](https://github.com/unhappychoice/gitlogue/releases) into a
+folder on your PATH (or `brew install gitlogue` / `cargo install gitlogue`).
+The script skips `data/songs.json` and `package-lock.json`, which are too big
+to watch being typed.
