@@ -224,14 +224,15 @@ validates `sort`.
 
 ## 5. Testing
 
-Run `npm test`. 42 tests across 9 files.
+Run `npm test`. 56 tests across 11 files.
 
 | File | Kind of test | Shows |
 |---|---|---|
-| `cartReducer.test.ts`, `search.test.ts`, `validation.test.ts`, `duration.test.ts` | Unit | Pure functions need no React and no mocks |
+| `cartReducer.test.ts`, `search.test.ts`, `validation.test.ts`, `duration.test.ts`, `lookups.test.ts` | Unit | Pure functions need no React and no mocks |
 | `useDebouncedValue.test.ts` | Hook | `renderHook`, fake timers |
 | `useSongSearch.test.ts` | Hook | Mocked `fetch`, async `waitFor`, a race-condition test |
 | `Crate.test.tsx`, `SongResults.test.tsx` | Component | Render with a real provider, click like a user |
+| `app/api/routes.test.ts` | Route Handler | Call `GET` directly in a Node test environment, check status codes and JSON |
 
 React Testing Library's rule: **test what the user sees and does, not how the
 component is built.** Find elements the way a user would

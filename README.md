@@ -14,7 +14,7 @@ details are collected. Song lengths are made up (see below).
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm test           # 42 tests: Jest + React Testing Library + jest-axe
+npm test           # 56 tests: Jest + React Testing Library + jest-axe
 npm run lint
 npm run build
 ```
@@ -27,7 +27,10 @@ Requires Node 20.9 or newer.
 |---|---|
 | `data/songs.json` | The song list. Read only on the server. |
 | `src/lib/search.ts` | Pure search / filter / sort / paging function |
-| `src/app/api/songs/route.ts` | Route Handler: `GET /api/songs` |
+| `src/app/api/songs/route.ts` | Route Handler: `GET /api/songs` (search) |
+| `src/app/api/songs/[id]/route.ts` | Dynamic route: `GET /api/songs/12141`, one song or 404 |
+| `src/app/api/decades/route.ts` | `GET /api/decades`, counts per decade, prerendered at build |
+| `src/lib/lookups.ts` | Pure lookups behind those two routes (the future database queries) |
 | `src/hooks/useSongSearch.ts` | Client data fetching: cancel, race-proofing, paging, errors |
 | `src/hooks/useDebouncedValue.ts` | Debounce (and a tidy closure example) |
 | `src/components/SongResults.tsx` | Hand-rolled virtualized list |
