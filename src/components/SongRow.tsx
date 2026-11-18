@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, type CSSProperties } from "react";
+import { formatDuration } from "@/lib/duration";
 import type { Song } from "@/lib/types";
 
 type Props = {
@@ -39,6 +40,10 @@ export const SongRow = memo(function SongRow({
         <span className="visually-hidden">
           {song.peak === null ? "Peak position unknown" : `Peaked at number ${song.peak}`}
         </span>
+      </span>
+      <span className="song-length">
+        <span aria-hidden="true">{formatDuration(song.durationSec)}</span>
+        <span className="visually-hidden">Length {formatDuration(song.durationSec)}</span>
       </span>
       <button
         type="button"

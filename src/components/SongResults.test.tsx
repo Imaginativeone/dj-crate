@@ -11,6 +11,7 @@ const manySongs: Song[] = Array.from({ length: 1000 }, (_, id) => ({
   artist: "Test Artist",
   peak: 50,
   weeks: 5,
+  durationSec: 200,
 }));
 
 function renderResults(onLoadMore = jest.fn()) {

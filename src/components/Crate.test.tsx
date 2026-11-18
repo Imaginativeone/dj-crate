@@ -48,6 +48,24 @@ describe("Crate", () => {
     expect(JSON.parse(window.localStorage.getItem(STORAGE_KEY)!)).toHaveLength(2);
   });
 
+  it("adds up the running time", async () => {
+    renderCrate(); // 3:02 + 2:36 + 2:20
+    expect(await screen.findByText("Running time 7:58")).toBeInTheDocument();
+  });
+
+  it("fills in lengths for a crate saved before lengths existed", async () => {
+    // JSON.stringify drops undefined fields, so this saves songs with no durationSec at all.
+    const oldCrate = testSongs.slice(0, 3).map((s) => ({ ...s, durationSec: undefined }));
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(oldCrate));
+    render(
+      <CartProvider>
+        <Crate />
+      </CartProvider>,
+    );
+    // The same total as above: the made-up length depends only on id and year.
+    expect(await screen.findByText("Running time 7:58")).toBeInTheDocument();
+  });
+
   it("shows an empty state", async () => {
     renderCrate([]);
     expect(await screen.findByText("Your crate is empty.")).toBeInTheDocument();
@@ -62,6 +80,6 @@ describe("Crate", () => {
 
 it("formats a setlist as numbered lines", () => {
   expect(setlistText(testSongs.slice(0, 2))).toBe(
-    "1. White Christmas - Bing Crosby (1942)\n2. I Want To Hold Your Hand - The Beatles (1964)",
+    "1. White Christmas - Bing Crosby (1942, 3:02)\n2. I Want To Hold Your Hand - The Beatles (1964, 2:36)",
   );
 });

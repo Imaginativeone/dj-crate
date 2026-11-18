@@ -7,14 +7,14 @@ Built as interview practice for senior React / Next.js topics. Read
 [STUDY_GUIDE.md](./STUDY_GUIDE.md) for what each file teaches.
 
 **This is a demo.** There are no prices, nothing is sold, and no payment
-details are collected.
+details are collected. Song lengths are made up (see below).
 
 ## Run it
 
 ```bash
 npm install
 npm run dev        # http://localhost:3000
-npm test           # 32 tests: Jest + React Testing Library + jest-axe
+npm test           # 42 tests: Jest + React Testing Library + jest-axe
 npm run lint
 npm run build
 ```
@@ -46,6 +46,11 @@ Requires Node 20.9 or newer.
   [Grimi94/data-science-music](https://github.com/Grimi94/data-science-music).
 
 Neither archive has been checked against Billboard's own records.
+
+**Song lengths are invented.** Neither archive records how long a song is, so
+`src/lib/duration.ts` gives each song a believable length for its era (about
+2:15 to 3:15 in the 1940s and 50s, up to 4:45 from the 1970s on). The length is
+computed from the song's id, so a song always gets the same one.
 
 ## Replay the build with Gitlogue
 

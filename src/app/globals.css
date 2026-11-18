@@ -203,7 +203,7 @@ input[aria-invalid="true"] {
   position: absolute;
   inset: 0 0 auto 0;
   display: grid;
-  grid-template-columns: 52px 1fr 52px 96px;
+  grid-template-columns: 52px 1fr 52px 44px 96px;
   align-items: center;
   gap: 12px;
   padding: 0 16px;
@@ -234,7 +234,8 @@ input[aria-invalid="true"] {
   color: var(--muted);
   font-size: 0.875rem;
 }
-.song-peak {
+.song-peak,
+.song-length {
   font-variant-numeric: tabular-nums;
   color: var(--muted);
 }
@@ -314,6 +315,11 @@ input[aria-invalid="true"] {
   margin: 0;
   font-weight: 700;
 }
+.summary-length {
+  margin: 0;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
 .summary .hint {
   margin: 0;
 }
@@ -330,7 +336,7 @@ input[aria-invalid="true"] {
     grid-template-columns: 1fr;
   }
   .song-row {
-    grid-template-columns: 44px 1fr 44px 84px;
+    grid-template-columns: 44px 1fr 44px 40px 84px;
   }
   .song-row .button {
     width: 84px;

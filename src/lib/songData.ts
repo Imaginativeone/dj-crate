@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
+import { songDuration } from "./duration";
 import type { Song } from "./types";
 
 /**
@@ -23,6 +24,7 @@ export function getSongs(): Song[] {
       artist,
       peak,
       weeks,
+      durationSec: songDuration(id, year),
     }));
   }
   return songs;

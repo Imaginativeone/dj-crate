@@ -8,6 +8,7 @@ import {
   type Dispatch,
   type ReactNode,
 } from "react";
+import { songDuration } from "@/lib/duration";
 import type { Song } from "@/lib/types";
 import { cartReducer, initialCartState, type CartAction, type CartState } from "./cartReducer";
 
@@ -29,7 +30,13 @@ function readSavedItems(): Song[] {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     const parsed: unknown = raw ? JSON.parse(raw) : [];
-    return Array.isArray(parsed) ? (parsed as Song[]) : [];
+    if (!Array.isArray(parsed)) return [];
+    // Crates saved before song lengths were added have no durationSec. The
+    // length is computed from id and year, so we can fill in the exact value
+    // the server would have sent instead of showing "NaN".
+    return (parsed as Song[]).map((s) =>
+      typeof s.durationSec === "number" ? s : { ...s, durationSec: songDuration(s.id, s.year) },
+    );
   } catch {
     // Storage can be blocked (private mode) or hold bad JSON. Start empty.
     return [];

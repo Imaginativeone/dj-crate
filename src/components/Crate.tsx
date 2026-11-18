@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useCart, useCartDispatch } from "@/cart/CartContext";
+import { formatDuration } from "@/lib/duration";
 import type { Song } from "@/lib/types";
 
 export function setlistText(items: readonly Song[]): string {
-  return items.map((s, i) => `${i + 1}. ${s.title} - ${s.artist} (${s.year})`).join("\n");
+  return items.map((s, i) => `${i + 1}. ${s.title} - ${s.artist} (${s.year}, ${formatDuration(s.durationSec)})`).join("\n");
 }
 
 function downloadSetlist(items: readonly Song[]) {
@@ -63,7 +64,7 @@ export function Crate() {
             <span className="song-main">
               <span className="song-title">{song.title}</span>
               <span className="song-artist">
-                {song.artist} · {song.year}
+                {song.artist} · {song.year} · {formatDuration(song.durationSec)}
               </span>
             </span>
             <span className="crate-actions">
@@ -109,6 +110,9 @@ export function Crate() {
         {/* Derived data: counted from state during render, never stored as state. */}
         <p className="summary-count">
           {items.length} {items.length === 1 ? "track" : "tracks"}
+        </p>
+        <p className="summary-length">
+          Running time {formatDuration(items.reduce((sum, s) => sum + s.durationSec, 0))}
         </p>
         <Link href="/checkout" className="button is-primary">
           Check out

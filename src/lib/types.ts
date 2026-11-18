@@ -8,6 +8,8 @@ export type Song = {
   peak: number | null;
   /** Total weeks on the chart. Null if unknown. */
   weeks: number | null;
+  /** Length in seconds. MADE UP, not real: see src/lib/duration.ts. */
+  durationSec: number;
 };
 
 export type SortKey = "chart" | "year" | "title";
